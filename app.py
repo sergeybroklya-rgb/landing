@@ -1,125 +1,47 @@
 import streamlit as st
 import streamlit.components.v1 as components
 
-# НАСТРОЙКА СТРАНИЦЫ - САМЫЙ ВАЖНЫЙ ШАГ!
 st.set_page_config(
     page_title="DirectMaster — Обучение Яндекс.Директу",
     page_icon="🚀",
-    layout="wide",
-    initial_sidebar_state="collapsed"
+    layout="wide"
 )
 
-# МАКСИМАЛЬНО АГРЕССИВНЫЕ СТИЛИ - УБИРАЕМ ВСЁ!
+# АГРЕССИВНО УБИРАЕМ ОТСТУПЫ STREAMLIT
 st.markdown("""
 <style>
-    /* БЛОКИРУЕМ ВСЕ ОТСТУПЫ */
-    .main > div {
-        padding: 0px !important;
-        margin: 0px !important;
-        max-width: 100% !important;
-        width: 100% !important;
-    }
-    
-    /* УБИРАЕМ ВЕСЬ КОНТЕЙНЕР STREAMLIT */
-    .stApp {
-        margin: 0px !important;
-        padding: 0px !important;
-        background: transparent !important;
-    }
-    
-    .stAppViewContainer {
-        padding: 0px !important;
-        margin: 0px !important;
-        background: transparent !important;
-        width: 100% !important;
-        max-width: 100% !important;
-    }
-    
-    .st-emotion-cache-1v0mbdj {
-        padding: 0px !important;
-        margin: 0px !important;
-        width: 100% !important;
-        max-width: 100% !important;
-    }
-    
-    .st-emotion-cache-16idsys {
-        padding: 0px !important;
-        margin: 0px !important;
-        width: 100% !important;
-        max-width: 100% !important;
-    }
-    
-    .element-container {
-        padding: 0px !important;
-        margin: 0px !important;
-        width: 100% !important;
-        max-width: 100% !important;
-    }
-    
-    .st-emotion-cache-1r6slb0 {
-        padding: 0px !important;
-        margin: 0px !important;
-        width: 100% !important;
-        max-width: 100% !important;
-    }
-    
-    /* СКРЫВАЕМ ВСЕ ЛИШНИЕ ЭЛЕМЕНТЫ */
-    #MainMenu {display: none !important;}
-    footer {display: none !important;}
-    header {display: none !important;}
-    .stDeployButton {display: none !important;}
-    .stToolbar {display: none !important;}
-    .stStatusWidget {display: none !important;}
-    .stAppDeployButton {display: none !important;}
-    
-    /* УБИРАЕМ СКРОЛЛ */
-    ::-webkit-scrollbar {
-        width: 0px !important;
-        height: 0px !important;
-        background: transparent !important;
-    }
-    
-    /* РАСТЯГИВАЕМ НА ВСЮ ШИРИНУ */
-    .stAppViewContainer > section {
-        padding: 0px !important;
-        margin: 0px !important;
-        width: 100vw !important;
-        max-width: 100% !important;
-    }
-    
-    /* ФОН ПРОЗРАЧНЫЙ */
-    .st-emotion-cache-18ni7ap {
-        background: transparent !important;
-    }
+    .main > div { padding: 0 !important; max-width: 100% !important; width: 100% !important; }
+    .stApp { margin: 0 !important; padding: 0 !important; background: transparent !important; }
+    .stAppViewContainer { padding: 0 !important; margin: 0 !important; background: transparent !important; width: 100% !important; }
+    .st-emotion-cache-1v0mbdj { padding: 0 !important; margin: 0 !important; width: 100% !important; }
+    .st-emotion-cache-16idsys { padding: 0 !important; margin: 0 !important; width: 100% !important; }
+    header, footer, #MainMenu, .stDeployButton, .stToolbar { display: none !important; }
+    ::-webkit-scrollbar { width: 0px !important; background: transparent !important; }
+    .stAppViewContainer > section { padding: 0 !important; margin: 0 !important; width: 100vw !important; max-width: 100% !important; }
 </style>
 """, unsafe_allow_html=True)
 
-# 🔥 ВАШ ПОЛНЫЙ HTML-КОД (СОХРАНЯЕМ ВСЕ ЭЛЕМЕНТЫ)
+# ВАШ ПОЛНЫЙ HTML-ЛЕНДИНГ (ВСЕ СЕКЦИИ + ОРИГИНАЛЬНЫЙ ФОН)
 HTML_TEMPLATE = """
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DirectMaster — Обучение Яндекс.Директу</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        /* ===== СБРАСЫВАЕМ ВСЕ ОТСТУПЫ ===== */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        html, body {
-            width: 100%;
-            min-height: 100vh;
+        /* ===== БАЗОВЫЙ СБРОС ===== */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: "Inter", sans-serif;
+            background: #0b0d15;
+            color: #f0f4ff;
+            overflow-x: hidden;
             margin: 0 !important;
             padding: 0 !important;
-            overflow-x: hidden;
-            background: #0b0d15;
-            font-family: "Inter", sans-serif;
-            color: #f0f4ff;
+            width: 100% !important;
+            min-height: 100vh;
         }
 
         /* ===== ОРИГИНАЛЬНЫЙ ГРАДИЕНТНЫЙ ФОН ===== */
@@ -184,7 +106,6 @@ HTML_TEMPLATE = """
             z-index: 2;
             min-height: 100vh;
         }
-
         .reveal { opacity: 0; transform: translateY(60px) scale(0.96); transition: all 0.9s cubic-bezier(0.23, 1, 0.32, 1); }
         .reveal.visible { opacity: 1; transform: translateY(0) scale(1); }
 
@@ -470,6 +391,72 @@ HTML_TEMPLATE = """
         .feature-card h3 { font-size: 1.5rem; font-weight: 600; margin-bottom: 12px; }
         .feature-card p { color: #94a3b8; font-weight: 300; }
 
+        /* ===== БЛОК ПОТОКА ===== */
+        .stream-block {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            background: rgba(255,255,255,0.02);
+            border-radius: 20px;
+            padding: 24px 36px;
+            border: 1px solid rgba(255,255,255,0.04);
+            margin: 20px 0 30px;
+        }
+        .stream-block .date {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #f0f4ff;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .stream-block .date span { color: #a78bfa; }
+
+        /* ===== ГРАФИК ===== */
+        .chart-container {
+            background: rgba(255,255,255,0.02);
+            border-radius: 24px;
+            padding: 30px 30px 20px;
+            border: 1px solid rgba(255,255,255,0.04);
+            margin: 20px auto 50px;
+            max-width: 600px;
+        }
+        .chart-bars {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            height: 120px;
+            gap: 12px;
+        }
+        .chart-bar-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+        }
+        .chart-bar {
+            width: 100%;
+            max-width: 40px;
+            border-radius: 8px 8px 4px 4px;
+            background: linear-gradient(180deg, #a78bfa, #4f46e5);
+            height: 10px;
+            min-height: 10px;
+        }
+        .chart-bar-item:nth-child(1) .chart-bar { height: 30px; }
+        .chart-bar-item:nth-child(2) .chart-bar { height: 50px; }
+        .chart-bar-item:nth-child(3) .chart-bar { height: 70px; }
+        .chart-bar-item:nth-child(4) .chart-bar { height: 95px; }
+        .chart-bar-item:nth-child(5) .chart-bar { height: 80px; }
+        .chart-bar-item:nth-child(6) .chart-bar { height: 110px; }
+        .chart-bar-label {
+            font-size: 0.65rem;
+            color: #94a3b8;
+            text-align: center;
+        }
+
         /* ===== КАЛЬКУЛЯТОР ===== */
         .calculator {
             max-width: 560px;
@@ -536,6 +523,19 @@ HTML_TEMPLATE = """
         .calculator .result-item .label {
             font-size: 0.8rem;
             color: #94a3b8;
+        }
+
+        /* ===== ПАРТНЁРСКИЙ БЕЙДЖ ===== */
+        .partner-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(167,139,250,0.06);
+            padding: 8px 20px;
+            border-radius: 60px;
+            border: 1px solid rgba(167,139,250,0.08);
+            font-size: 0.8rem;
+            color: #c4b5fd;
         }
 
         /* ===== ТАРИФЫ ===== */
@@ -631,6 +631,159 @@ HTML_TEMPLATE = """
         .footer a { color: #6b7a9f; text-decoration: none; transition: color 0.3s; cursor: pointer; }
         .footer a:hover { color: #a78bfa; }
 
+        /* ===== РЕЙТИНГ ===== */
+        .rating-block {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 30px 0 50px;
+        }
+        .rating-block .big-number {
+            font-size: 2.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #a78bfa, #60a5fa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .rating-block .stars-row {
+            display: flex;
+            gap: 4px;
+        }
+        .rating-block .stars-row svg {
+            width: 24px;
+            height: 24px;
+            fill: #a78bfa;
+            stroke: #7c3aed;
+            stroke-width: 0.5;
+        }
+        .rating-block .rating-bar {
+            flex: 1;
+            min-width: 120px;
+            height: 4px;
+            background: rgba(255,255,255,0.06);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .rating-block .rating-bar .fill {
+            height: 100%;
+            width: 98%;
+            background: linear-gradient(90deg, #7c3aed, #a78bfa);
+            border-radius: 10px;
+        }
+
+        /* ===== ОТЗЫВЫ ===== */
+        .reviews-slider {
+            display: flex;
+            gap: 30px;
+            overflow-x: auto;
+            padding: 20px 0 40px;
+            scroll-snap-type: x mandatory;
+            scrollbar-width: none;
+        }
+        .reviews-slider::-webkit-scrollbar { display: none; }
+        .review-card {
+            flex: 0 0 320px;
+            scroll-snap-align: start;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.04);
+            border-radius: 24px;
+            padding: 30px 28px;
+            transition: all 0.3s;
+        }
+        .review-card:hover { transform: translateY(-8px); background: rgba(255,255,255,0.06); border-color: rgba(167,139,250,0.2); }
+        .review-stars {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 14px;
+        }
+        .review-stars svg {
+            width: 22px;
+            height: 22px;
+            fill: #a78bfa;
+            stroke: #7c3aed;
+            stroke-width: 0.5;
+        }
+        .review-text {
+            color: #e2e8f0;
+            font-size: 0.95rem;
+            line-height: 1.7;
+            margin-bottom: 16px;
+            font-style: italic;
+        }
+        .review-author {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .review-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #7c3aed, #4f46e5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 1.2rem;
+            color: white;
+            flex-shrink: 0;
+        }
+        .review-name { font-weight: 600; font-size: 0.95rem; }
+        .review-role { color: #94a3b8; font-size: 0.8rem; }
+
+        /* ===== FAQ ===== */
+        .faq-list {
+            max-width: 800px;
+            margin: 0 auto 50px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .faq-item {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.04);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+        .faq-item:hover { background: rgba(255,255,255,0.04); border-color: rgba(167,139,250,0.1); }
+        .faq-question {
+            width: 100%;
+            padding: 20px 28px;
+            background: none;
+            border: none;
+            color: #f0f4ff;
+            font-size: 1.05rem;
+            font-weight: 500;
+            text-align: left;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: inherit;
+            transition: all 0.3s;
+        }
+        .faq-question:hover { color: #a78bfa; }
+        .faq-question .icon {
+            font-size: 1.4rem;
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            color: #a78bfa;
+            flex-shrink: 0;
+            margin-left: 16px;
+        }
+        .faq-item.open .faq-question .icon { transform: rotate(45deg); }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.3s ease;
+            padding: 0 28px;
+            color: #b0b9d4;
+            line-height: 1.7;
+        }
+        .faq-item.open .faq-answer { max-height: 200px; padding: 0 28px 24px; }
+
         /* ===== АДАПТИВ ===== */
         @media (max-width: 700px) {
             .container { padding: 0 15px; }
@@ -647,6 +800,9 @@ HTML_TEMPLATE = """
             .stat-number { font-size: 2.4rem; }
             .calculator { padding: 24px 18px; }
             .places-bar { padding: 12px 20px; flex-direction: column; gap: 10px; }
+            .review-card { flex: 0 0 280px; }
+            .chart-container { padding: 20px 16px; }
+            .chart-bars { height: 80px; gap: 6px; }
         }
     </style>
 </head>
@@ -736,8 +892,26 @@ HTML_TEMPLATE = """
             </div>
         </section>
 
+        <!-- БЛИЖАЙШИЙ ПОТОК -->
+        <div class="stream-block reveal">
+            <div class="date">
+                <svg width="24" height="24" viewBox="0 0 24 24" stroke="#a78bfa" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                    <line x1="16" y1="2" x2="16" y2="6"/>
+                    <line x1="8" y1="2" x2="8" y2="6"/>
+                    <line x1="3" y1="10" x2="21" y2="10"/>
+                    <circle cx="12" cy="15" r="1"/>
+                </svg>
+                Ближайший поток: <span>15 июля 2026</span>
+            </div>
+            <a href="#" class="btn-primary" style="padding: 12px 28px; font-size: 0.95rem;">Напомнить</a>
+        </div>
+
         <!-- СТАТИСТИКА -->
-        <div class="section-header" style="text-align: center;"><h2 class="section-title" style="font-size: 2.6rem; font-weight: 700; margin-bottom: 16px;">Нам доверяют</h2><p class="section-sub" style="color: #94a3b8; font-size: 1.2rem; max-width: 600px; margin: 0 auto 50px;">Результаты наших учеников говорят сами за себя</p></div>
+        <div style="text-align: center; margin: 40px 0 10px;">
+            <h2 style="font-size: 2.6rem; font-weight: 700; margin-bottom: 16px;">Нам доверяют</h2>
+            <p style="color: #94a3b8; font-size: 1.2rem; max-width: 600px; margin: 0 auto 50px;">Результаты наших учеников говорят сами за себя</p>
+        </div>
         <div class="stats-grid">
             <div class="stat-item reveal">
                 <span class="stat-number" data-target="500">0</span>
@@ -757,8 +931,41 @@ HTML_TEMPLATE = """
             </div>
         </div>
 
+        <!-- ГРАФИК -->
+        <div class="chart-container reveal" style="margin: 20px auto 50px;">
+            <div style="text-align:center; font-weight:600; margin-bottom:20px; color:#e2e8f0; display:flex; align-items:center; justify-content:center; gap:10px;">
+                <svg width="22" height="22" viewBox="0 0 24 24" stroke="#34d399" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/>
+                    <polyline points="17 6 23 6 23 12"/>
+                </svg>
+                Рост среднего дохода учеников после курса
+            </div>
+            <div class="chart-bars">
+                <div class="chart-bar-item"><div class="chart-bar"></div><span class="chart-bar-label">Месяц 1</span></div>
+                <div class="chart-bar-item"><div class="chart-bar"></div><span class="chart-bar-label">Месяц 2</span></div>
+                <div class="chart-bar-item"><div class="chart-bar"></div><span class="chart-bar-label">Месяц 3</span></div>
+                <div class="chart-bar-item"><div class="chart-bar"></div><span class="chart-bar-label">Месяц 4</span></div>
+                <div class="chart-bar-item"><div class="chart-bar"></div><span class="chart-bar-label">Месяц 5</span></div>
+                <div class="chart-bar-item"><div class="chart-bar"></div><span class="chart-bar-label">Месяц 6</span></div>
+            </div>
+        </div>
+
+        <!-- ПАРТНЁР -->
+        <div style="text-align: center; margin: 20px 0 40px;">
+            <span class="partner-badge">
+                <svg width="20" height="20" viewBox="0 0 24 24" stroke="#a78bfa" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                    <polyline points="9 12 11 14 15 10"/>
+                </svg>
+                Официальный партнёр Яндекс
+            </span>
+        </div>
+
         <!-- ПРЕИМУЩЕСТВА -->
-        <div class="section-header" style="text-align: center;"><h2 class="section-title" style="font-size: 2.6rem; font-weight: 700; margin-bottom: 16px;">Ключевые преимущества</h2><p class="section-sub" style="color: #94a3b8; font-size: 1.2rem; max-width: 600px; margin: 0 auto 50px;">Что ты получишь на курсе</p></div>
+        <div style="text-align: center; margin: 60px 0 10px;">
+            <h2 style="font-size: 2.6rem; font-weight: 700; margin-bottom: 16px;">Ключевые преимущества</h2>
+            <p style="color: #94a3b8; font-size: 1.2rem; max-width: 600px; margin: 0 auto 50px;">Что ты получишь на курсе</p>
+        </div>
         <div class="grid-3">
             <div class="feature-card reveal">
                 <div class="feature-icon">
@@ -794,8 +1001,29 @@ HTML_TEMPLATE = """
             </div>
         </div>
 
+        <!-- РЕЙТИНГ -->
+        <div style="text-align: center; margin: 60px 0 10px;">
+            <h2 style="font-size: 2.6rem; font-weight: 700; margin-bottom: 16px;">Наш рейтинг</h2>
+            <p style="color: #94a3b8; font-size: 1.2rem; max-width: 600px; margin: 0 auto 50px;">Оценка учеников на основе 150+ отзывов</p>
+        </div>
+        <div class="rating-block reveal">
+            <div class="big-number">4.9</div>
+            <div class="stars-row">
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </div>
+            <div class="rating-bar"><div class="fill"></div></div>
+            <span style="color: #94a3b8; font-size: 0.9rem;">98%</span>
+        </div>
+
         <!-- КАЛЬКУЛЯТОР -->
-        <div class="section-header" style="text-align: center;"><h2 class="section-title" style="font-size: 2.6rem; font-weight: 700; margin-bottom: 16px;">Рассчитай окупаемость</h2><p class="section-sub" style="color: #94a3b8; font-size: 1.2rem; max-width: 600px; margin: 0 auto 50px;">Узнай, сколько клиентов ты получишь</p></div>
+        <div style="text-align: center; margin: 60px 0 10px;">
+            <h2 style="font-size: 2.6rem; font-weight: 700; margin-bottom: 16px;">Рассчитай окупаемость</h2>
+            <p style="color: #94a3b8; font-size: 1.2rem; max-width: 600px; margin: 0 auto 50px;">Узнай, сколько клиентов ты получишь</p>
+        </div>
         <div class="calculator reveal">
             <label>Ваш бюджет на рекламу в месяц</label>
             <div class="input-row">
@@ -819,8 +1047,64 @@ HTML_TEMPLATE = """
             </div>
         </div>
 
+        <!-- ОТЗЫВЫ -->
+        <div style="text-align: center; margin: 60px 0 10px;">
+            <h2 style="font-size: 2.6rem; font-weight: 700; margin-bottom: 16px;">Что говорят ученики</h2>
+            <p style="color: #94a3b8; font-size: 1.2rem; max-width: 600px; margin: 0 auto 50px;">Реальные отзывы выпускников</p>
+        </div>
+        <div class="reviews-slider">
+            <div class="review-card reveal">
+                <div class="review-stars">
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                </div>
+                <p class="review-text">"Курс полностью изменил мой подход к рекламе. Запустил свою первую кампанию и получил клиентов в первый же день!"</p>
+                <div class="review-author"><div class="review-avatar">А</div><div><div class="review-name">Алексей Иванов</div><div class="review-role">CEO, IT-студия</div></div></div>
+            </div>
+            <div class="review-card reveal">
+                <div class="review-stars">
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                </div>
+                <p class="review-text">"До этого боялся Яндекс.Директа, но после обучения запустил рекламу и окупил вложения за 3 дня."</p>
+                <div class="review-author"><div class="review-avatar">М</div><div><div class="review-name">Мария Петрова</div><div class="review-role">Маркетолог</div></div></div>
+            </div>
+            <div class="review-card reveal">
+                <div class="review-stars">
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                </div>
+                <p class="review-text">"Лучший курс по контекстной рекламе! Всё структурировано, много практики и обратной связи."</p>
+                <div class="review-author"><div class="review-avatar">Д</div><div><div class="review-name">Дмитрий Смирнов</div><div class="review-role">Владелец бизнеса</div></div></div>
+            </div>
+        </div>
+
+        <!-- FAQ -->
+        <div style="text-align: center; margin: 60px 0 10px;">
+            <h2 style="font-size: 2.6rem; font-weight: 700; margin-bottom: 16px;">Часто задаваемые вопросы</h2>
+            <p style="color: #94a3b8; font-size: 1.2rem; max-width: 600px; margin: 0 auto 50px;">Ответы на главные вопросы</p>
+        </div>
+        <div class="faq-list">
+            <div class="faq-item reveal"><button class="faq-question">Что если у меня нет опыта в рекламе?<span class="icon">+</span></button><div class="faq-answer">Курс разработан как для новичков, так и для специалистов. Мы начинаем с самых основ и постепенно усложняем материал.</div></div>
+            <div class="faq-item reveal"><button class="faq-question">Можно ли оплатить в рассрочку?<span class="icon">+</span></button><div class="faq-answer">Да, мы предлагаем рассрочку на 3 или 6 месяцев без переплаты. Подробности уточняйте у менеджера.</div></div>
+            <div class="faq-item reveal"><button class="faq-question">Выдаёте ли вы сертификат после обучения?<span class="icon">+</span></button><div class="faq-answer">Да, после успешного прохождения курса вы получаете именной сертификат, который можно добавить в портфолио и резюме.</div></div>
+            <div class="faq-item reveal"><button class="faq-question">Как долго длится обучение?<span class="icon">+</span></button><div class="faq-answer">Основной курс длится 4 недели. После этого вы получаете доступ к закрытому комьюнити и бонусным материалам.</div></div>
+        </div>
+
         <!-- ТАРИФЫ -->
-        <div class="section-header" style="text-align: center;"><h2 class="section-title" style="font-size: 2.6rem; font-weight: 700; margin-bottom: 16px;">Выбери свой трек</h2><p class="section-sub" style="color: #94a3b8; font-size: 1.2rem; max-width: 600px; margin: 0 auto 50px;">Подходит и новичкам, и специалистам с опытом</p></div>
+        <div style="text-align: center; margin: 60px 0 10px;">
+            <h2 style="font-size: 2.6rem; font-weight: 700; margin-bottom: 16px;">Выбери свой трек</h2>
+            <p style="color: #94a3b8; font-size: 1.2rem; max-width: 600px; margin: 0 auto 50px;">Подходит и новичкам, и специалистам с опытом</p>
+        </div>
         <div class="pricing-wrap">
             <div class="pricing-card reveal"><h3>Стандарт</h3><div class="price">19 900 <small>₽</small></div><ul><li>12 видео-уроков</li><li>Чат с кураторами</li><li>Домашние задания с проверкой</li></ul><a href="#" class="btn-primary">Выбрать</a></div>
             <div class="pricing-card popular reveal"><span class="popular-badge"><svg width="16" height="16" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" fill="white"/></svg> Самый популярный</span><h3>Профи</h3><div class="price">34 900 <small>₽</small></div><ul><li>24 видео-урока</li><li>Личный наставник</li><li>Разбор твоей ниши</li><li>Доступ к закрытому комьюнити</li></ul><a href="#" class="btn-primary">Выбрать</a></div>
@@ -960,6 +1244,11 @@ HTML_TEMPLATE = """
             counters.forEach(el => observer.observe(el));
         })();
 
+        // ===== FAQ =====
+        document.querySelectorAll('.faq-question').forEach(btn => {
+            btn.addEventListener('click', () => btn.parentElement.classList.toggle('open'));
+        });
+
         // ===== АНИМАЦИЯ ПОЯВЛЕНИЯ =====
         (function() {
             const reveals = document.querySelectorAll('.reveal');
@@ -1011,5 +1300,5 @@ HTML_TEMPLATE = """
 </html>
 """
 
-# 🔥 ОТОБРАЖАЕМ HTML НА ВЕСЬ ЭКРАН
+# ОТОБРАЖАЕМ ПОЛНЫЙ ЛЕНДИНГ
 components.html(HTML_TEMPLATE, height=800, scrolling=False)
