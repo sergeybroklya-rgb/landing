@@ -8,48 +8,63 @@ st.set_page_config(
     layout="wide"
 )
 
-# РАСШИРЯЕМ КОНТЕЙНЕР НА ВЕСЬ ЭКРАН
+# 💥 ЖЕСТКИЕ СТИЛИ ДЛЯ ПОЛНОГО ЭКРАНА
 st.markdown("""
 <style>
-    /* Убираем все отступы */
+    /* Убираем ВСЕ отступы у ВСЕХ контейнеров */
     .main .block-container {
-        padding-left: 0rem !important;
-        padding-right: 0rem !important;
-        padding-top: 0rem !important;
-        padding-bottom: 0rem !important;
+        padding: 0 !important;
+        margin: 0 !important;
         max-width: 100% !important;
+        width: 100% !important;
     }
     
-    /* Скрываем стандартные элементы Streamlit */
-    #MainMenu {visibility: hidden;}
-    footer {visibility: hidden;}
-    header {visibility: hidden;}
-    
-    /* Убираем фон и делаем прозрачным */
+    /* Убираем отступы у основного окна */
     .stApp {
-        background: transparent !important;
+        margin: 0 !important;
+        padding: 0 !important;
     }
     
     .stAppViewContainer {
         padding: 0 !important;
-    }
-    
-    .stAppViewContainer > section {
-        padding: 0 !important;
+        margin: 0 !important;
     }
     
     .st-emotion-cache-1v0mbdj {
         padding: 0 !important;
     }
     
-    /* Убираем скролл у Streamlit */
     .st-emotion-cache-16idsys {
         padding: 0 !important;
+    }
+    
+    /* Скрываем ВСЕ лишние элементы Streamlit */
+    #MainMenu {visibility: hidden !important;}
+    footer {visibility: hidden !important;}
+    header {visibility: hidden !important;}
+    .stDeployButton {display: none !important;}
+    .stToolbar {display: none !important;}
+    
+    /* Убираем скролл у Streamlit */
+    ::-webkit-scrollbar {
+        width: 0px !important;
+        background: transparent !important;
+    }
+    
+    /* Полностью прозрачный фон */
+    .stApp {
+        background: transparent !important;
+    }
+    
+    /* Растягиваем на всю высоту */
+    .stAppViewContainer > section {
+        padding: 0 !important;
+        height: 100vh !important;
     }
 </style>
 """, unsafe_allow_html=True)
 
-# ВАШ HTML-КОД (БЕЗ ВИДЕО)
+# ВАШ HTML-КОД (полностью)
 HTML_TEMPLATE = """
 <!DOCTYPE html>
 <html lang="ru">
@@ -59,9 +74,33 @@ HTML_TEMPLATE = """
     <title>DirectMaster — Обучение Яндекс.Директу</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: "Inter", sans-serif; background: #0b0d15; color: #f0f4ff; overflow-x: hidden; }
+        /* Сбрасываем ВСЕ отступы */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html, body {
+            margin: 0 !important;
+            padding: 0 !important;
+            width: 100% !important;
+            overflow-x: hidden !important;
+            background: #0b0d15;
+            font-family: "Inter", sans-serif;
+            color: #f0f4ff;
+        }
 
+        /* КОНТЕЙНЕР — на всю ширину */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* ОСТАЛЬНЫЕ СТИЛИ (ваши существующие) */
         #particles-canvas {
             position: fixed;
             top: 0;
@@ -107,7 +146,6 @@ HTML_TEMPLATE = """
             100% { transform: scale(1.2) rotate(5deg); opacity: 1; }
         }
 
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 30px; position: relative; z-index: 2; }
         .reveal { opacity: 0; transform: translateY(60px) scale(0.96); transition: all 0.9s cubic-bezier(0.23, 1, 0.32, 1); }
         .reveal.visible { opacity: 1; transform: translateY(0) scale(1); }
 
