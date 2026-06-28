@@ -1,7 +1,41 @@
-from flask import Flask, render_template_string
+import streamlit as st
+import streamlit.components.v1 as components
+from datetime import datetime, timedelta
+import time
 
-app = Flask(__name__)
+# Настройка страницы
+st.set_page_config(
+    page_title="DirectMaster — Обучение Яндекс.Директу",
+    page_icon="🚀",
+    layout="wide"
+)
 
+# Скрываем стандартные элементы Streamlit
+st.markdown("""
+    <style>
+        #MainMenu {visibility: hidden;}
+        footer {visibility: hidden;}
+        header {visibility: hidden;}
+        .stApp {
+            background: #0b0d15;
+            color: #f0f4ff;
+        }
+        .block-container {
+            padding-top: 0;
+            padding-bottom: 0;
+            max-width: 100% !important;
+        }
+        /* Адаптация для мобильных */
+        @media (max-width: 700px) {
+            .block-container {
+                padding-left: 0;
+                padding-right: 0;
+            }
+        }
+    </style>
+""", unsafe_allow_html=True)
+
+# Ваш HTML-код (немного адаптированный для Streamlit)
 HTML_TEMPLATE = """
 <!DOCTYPE html>
 <html lang="ru">
@@ -73,7 +107,7 @@ HTML_TEMPLATE = """
         .hero { padding: 60px 0 50px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 25px; }
         .hero-badge { display: inline-flex; align-items: center; gap: 10px; background: rgba(167,139,250,0.08); padding: 10px 28px; border-radius: 60px; font-size: 0.9rem; font-weight: 500; color: #c4b5fd; border: 1px solid rgba(167,139,250,0.1); backdrop-filter: blur(4px); width: fit-content; animation: pulseBadge 4s infinite; }
         .hero-badge svg { width: 18px; height: 18px; stroke: #c4b5fd; fill: none; stroke-width: 2; }
-        @keyframes pulseBadge { 0% { box-shadow: 0 0 0 0 rgba(167,139,250,0.1); } 50% { box-shadow: 0 0 0 15px rgba(167,139,250,0); } 100% { box-shadow: 0 0 0 0 rgba(167,139,250,0); } }
+        @keyframes pulseBadge { 0% { box-shadow: 0 0 0 0 rgba(167,139,250,0.1); } 50% { box-shadow: 0 0 0 15px rgba(167,139,250,0); } 100% { box-shadow: 0 0 0 0 rgba(167,139,250,0.1); } }
         .hero h1 { font-size: clamp(2.8rem, 10vw, 5.2rem); font-weight: 800; line-height: 1.05; max-width: 900px; margin: 0 auto; }
         .hero h1 span { background: linear-gradient(135deg, #a78bfa, #60a5fa, #34d399); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .hero-desc { font-size: 1.25rem; color: #94a3b8; max-width: 620px; font-weight: 400; line-height: 1.7; margin: 0 auto; }
@@ -206,7 +240,6 @@ HTML_TEMPLATE = """
             text-align: center;
         }
 
-        /* ===== ВИДЕО С ОБЛОЖКОЙ ===== */
         .video-wrapper {
             position: relative;
             max-width: 700px;
@@ -1274,9 +1307,5 @@ HTML_TEMPLATE = """
 </html>
 """
 
-@app.route('/')
-def index():
-    return render_template_string(HTML_TEMPLATE)
-
-if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=5000)
+# Отображаем HTML внутри Streamlit
+st.components.v1.html(HTML_TEMPLATE, height=800, scrolling=True)
