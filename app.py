@@ -8,10 +8,10 @@ st.set_page_config(
     layout="wide"
 )
 
-# 💥 ЖЕСТКИЕ СТИЛИ ДЛЯ ПОЛНОГО ЭКРАНА
+# ПОЛНОЭКРАННЫЙ РЕЖИМ + ПРОЗРАЧНЫЙ ФОН
 st.markdown("""
 <style>
-    /* Убираем ВСЕ отступы у ВСЕХ контейнеров */
+    /* Убираем ВСЕ отступы */
     .main .block-container {
         padding: 0 !important;
         margin: 0 !important;
@@ -19,15 +19,16 @@ st.markdown("""
         width: 100% !important;
     }
     
-    /* Убираем отступы у основного окна */
     .stApp {
         margin: 0 !important;
         padding: 0 !important;
+        background: transparent !important;
     }
     
     .stAppViewContainer {
         padding: 0 !important;
         margin: 0 !important;
+        background: transparent !important;
     }
     
     .st-emotion-cache-1v0mbdj {
@@ -38,7 +39,7 @@ st.markdown("""
         padding: 0 !important;
     }
     
-    /* Скрываем ВСЕ лишние элементы Streamlit */
+    /* Скрываем ВСЕ элементы Streamlit */
     #MainMenu {visibility: hidden !important;}
     footer {visibility: hidden !important;}
     header {visibility: hidden !important;}
@@ -51,11 +52,6 @@ st.markdown("""
         background: transparent !important;
     }
     
-    /* Полностью прозрачный фон */
-    .stApp {
-        background: transparent !important;
-    }
-    
     /* Растягиваем на всю высоту */
     .stAppViewContainer > section {
         padding: 0 !important;
@@ -64,7 +60,7 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# ВАШ HTML-КОД (полностью)
+# ВАШ HTML-КОД (с оригинальным фоном)
 HTML_TEMPLATE = """
 <!DOCTYPE html>
 <html lang="ru">
@@ -74,33 +70,17 @@ HTML_TEMPLATE = """
     <title>DirectMaster — Обучение Яндекс.Директу</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        /* Сбрасываем ВСЕ отступы */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        html, body {
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: "Inter", sans-serif; 
+            background: #0b0d15; 
+            color: #f0f4ff; 
+            overflow-x: hidden;
             margin: 0 !important;
             padding: 0 !important;
             width: 100% !important;
-            overflow-x: hidden !important;
-            background: #0b0d15;
-            font-family: "Inter", sans-serif;
-            color: #f0f4ff;
         }
 
-        /* КОНТЕЙНЕР — на всю ширину */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            position: relative;
-            z-index: 2;
-        }
-
-        /* ОСТАЛЬНЫЕ СТИЛИ (ваши существующие) */
         #particles-canvas {
             position: fixed;
             top: 0;
@@ -124,6 +104,7 @@ HTML_TEMPLATE = """
         }
         #cursor-glow.hover { width: 350px; height: 350px; background: radial-gradient(circle, rgba(167,139,250,0.18) 0%, rgba(96,165,250,0.08) 40%, transparent 70%); }
 
+        /* ОРИГИНАЛЬНЫЙ ГРАДИЕНТНЫЙ ФОН */
         .gradient-bg {
             position: fixed;
             top: 0; left: 0;
@@ -144,6 +125,15 @@ HTML_TEMPLATE = """
         @keyframes ambientMove {
             0% { transform: scale(1) rotate(0deg); opacity: 0.6; }
             100% { transform: scale(1.2) rotate(5deg); opacity: 1; }
+        }
+
+        /* КОНТЕЙНЕР - на всю ширину */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 30px;
+            position: relative;
+            z-index: 2;
         }
 
         .reveal { opacity: 0; transform: translateY(60px) scale(0.96); transition: all 0.9s cubic-bezier(0.23, 1, 0.32, 1); }
@@ -691,7 +681,6 @@ HTML_TEMPLATE = """
     <div class="gradient-bg"></div>
 
     <div class="container">
-        <!-- НАВИГАЦИЯ -->
         <nav class="navbar">
             <div class="logo">
                 <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
@@ -712,7 +701,6 @@ HTML_TEMPLATE = """
             </div>
         </nav>
 
-        <!-- HERO -->
         <section class="hero reveal">
             <span class="hero-badge">
                 <svg viewBox="0 0 24 24" fill="none" stroke="#c4b5fd" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -757,7 +745,6 @@ HTML_TEMPLATE = """
             </div>
         </section>
 
-        <!-- БЛИЖАЙШИЙ ПОТОК -->
         <div class="stream-block reveal">
             <div class="date">
                 <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
@@ -772,7 +759,6 @@ HTML_TEMPLATE = """
             <a href="#" class="btn-primary btn-sm">Напомнить</a>
         </div>
 
-        <!-- СТАТИСТИКА -->
         <div class="section-header reveal"><h2 class="section-title">Нам доверяют</h2><p class="section-sub">Результаты наших учеников говорят сами за себя</p></div>
         <div class="stats-grid">
             <div class="stat-item reveal">
@@ -798,7 +784,6 @@ HTML_TEMPLATE = """
             </div>
         </div>
 
-        <!-- ГРАФИК РОСТА -->
         <div class="chart-container reveal">
             <div class="chart-title">
                 <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
@@ -817,7 +802,6 @@ HTML_TEMPLATE = """
             </div>
         </div>
 
-        <!-- ПАРТНЁР -->
         <div style="text-align: center; margin: 20px 0 40px;">
             <span class="partner-badge">
                 <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
@@ -828,7 +812,6 @@ HTML_TEMPLATE = """
             </span>
         </div>
 
-        <!-- ПРЕИМУЩЕСТВА -->
         <div class="section-header reveal"><h2 class="section-title">Ключевые преимущества</h2><p class="section-sub">Что ты получишь на курсе</p></div>
         <div class="grid-3">
             <div class="feature-card reveal">
@@ -867,7 +850,6 @@ HTML_TEMPLATE = """
             </div>
         </div>
 
-        <!-- ROADMAP -->
         <div class="section-header reveal"><h2 class="section-title">Как проходит обучение</h2><p class="section-sub">4 шага к твоему результату</p></div>
         <div class="roadmap">
             <div class="roadmap-item reveal">
@@ -900,7 +882,6 @@ HTML_TEMPLATE = """
             </div>
         </div>
 
-        <!-- ПРОГРАММА -->
         <div class="section-header reveal"><h2 class="section-title">Программа обучения</h2><p class="section-sub">5 модулей, которые превратят тебя в эксперта</p></div>
         <div class="program-grid">
             <div class="program-item reveal"><span class="program-number">01</span><div><h4>Основы Яндекс.Директа</h4><p>Структура аккаунта, типы кампаний, аукцион</p></div></div>
@@ -910,7 +891,6 @@ HTML_TEMPLATE = """
             <div class="program-item reveal"><span class="program-number">05</span><div><h4>Большие бюджеты</h4><p>Стратегии для кампаний от 1 млн ₽</p></div></div>
         </div>
 
-        <!-- БОНУСЫ -->
         <div class="section-header reveal"><h2 class="section-title">Бонусы при покупке</h2><p class="section-sub">Дополнительная ценность для твоего роста</p></div>
         <div class="bonus-grid">
             <div class="bonus-item reveal">
@@ -950,7 +930,6 @@ HTML_TEMPLATE = """
             </div>
         </div>
 
-        <!-- РЕЙТИНГ -->
         <div class="section-header reveal"><h2 class="section-title">Наш рейтинг</h2><p class="section-sub">Оценка учеников на основе 150+ отзывов</p></div>
         <div class="rating-block reveal" style="margin-bottom: 50px;">
             <div class="big-number">4.9</div>
@@ -965,7 +944,6 @@ HTML_TEMPLATE = """
             <span style="color: #94a3b8; font-size: 0.9rem;">98%</span>
         </div>
 
-        <!-- КАЛЬКУЛЯТОР -->
         <div class="section-header reveal"><h2 class="section-title">Рассчитай окупаемость</h2><p class="section-sub">Узнай, сколько клиентов ты получишь</p></div>
         <div class="calculator reveal">
             <label>Ваш бюджет на рекламу в месяц</label>
@@ -990,7 +968,6 @@ HTML_TEMPLATE = """
             </div>
         </div>
 
-        <!-- ОТЗЫВЫ -->
         <div class="section-header reveal"><h2 class="section-title">Что говорят ученики</h2><p class="section-sub">Реальные отзывы выпускников</p></div>
         <div class="reviews-slider">
             <div class="review-card reveal">
@@ -1028,7 +1005,6 @@ HTML_TEMPLATE = """
             </div>
         </div>
 
-        <!-- FAQ -->
         <div class="section-header reveal"><h2 class="section-title">Часто задаваемые вопросы</h2><p class="section-sub">Ответы на главные вопросы</p></div>
         <div class="faq-list">
             <div class="faq-item reveal"><button class="faq-question">Что если у меня нет опыта в рекламе?<span class="icon">+</span></button><div class="faq-answer">Курс разработан как для новичков, так и для специалистов. Мы начинаем с самых основ и постепенно усложняем материал.</div></div>
@@ -1037,7 +1013,6 @@ HTML_TEMPLATE = """
             <div class="faq-item reveal"><button class="faq-question">Как долго длится обучение?<span class="icon">+</span></button><div class="faq-answer">Основной курс длится 4 недели. После этого вы получаете доступ к закрытому комьюнити и бонусным материалам.</div></div>
         </div>
 
-        <!-- ТАРИФЫ -->
         <div class="section-header reveal"><h2 class="section-title">Выбери свой трек</h2><p class="section-sub">Подходит и новичкам, и специалистам с опытом</p></div>
         <div class="pricing-wrap">
             <div class="pricing-card reveal"><h3>Стандарт</h3><div class="price">19 900 <small>₽</small></div><ul><li>12 видео-уроков</li><li>Чат с кураторами</li><li>Домашние задания с проверкой</li></ul><a href="#" class="btn-primary">Выбрать</a></div>
@@ -1045,7 +1020,6 @@ HTML_TEMPLATE = """
             <div class="pricing-card reveal"><h3>Бизнес</h3><div class="price">59 900 <small>₽</small></div><ul><li>Всё из Профи</li><li>Индивидуальная стратегия</li><li>Аудит текущих кампаний</li><li>3 часа личной консультации</li></ul><a href="#" class="btn-primary">Выбрать</a></div>
         </div>
 
-        <!-- ФУТЕР -->
         <footer class="footer">
             <span>© 2026 DirectMaster — обучение Яндекс.Директу</span>
             <div class="footer-links"><a href="#">Политика</a><a href="#">Договор</a></div>
@@ -1053,7 +1027,6 @@ HTML_TEMPLATE = """
     </div>
 
     <script>
-        // ЧАСТИЦЫ
         (function() {
             const canvas = document.getElementById('particles-canvas');
             const ctx = canvas.getContext('2d');
@@ -1121,7 +1094,6 @@ HTML_TEMPLATE = """
             animateParticles();
         })();
 
-        // СВЕЧЕНИЕ ПОД КУРСОРОМ
         (function() {
             const glow = document.getElementById('cursor-glow');
             let mouseX = 0, mouseY = 0, glowX = 0, glowY = 0;
@@ -1140,7 +1112,6 @@ HTML_TEMPLATE = """
             });
         })();
 
-        // ТАЙМЕР
         (function() {
             const target = new Date('2026-07-15T00:00:00');
             function updateTimer() {
@@ -1155,7 +1126,6 @@ HTML_TEMPLATE = """
             setInterval(updateTimer, 1000);
         })();
 
-        // СЧЁТЧИКИ
         (function() {
             const counters = document.querySelectorAll('.stat-number');
             const observer = new IntersectionObserver((entries) => {
@@ -1178,12 +1148,10 @@ HTML_TEMPLATE = """
             counters.forEach(el => observer.observe(el));
         })();
 
-        // FAQ
         document.querySelectorAll('.faq-question').forEach(btn => {
             btn.addEventListener('click', () => btn.parentElement.classList.toggle('open'));
         });
 
-        // АНИМАЦИЯ ПОЯВЛЕНИЯ
         (function() {
             const reveals = document.querySelectorAll('.reveal');
             const observer = new IntersectionObserver((entries) => {
@@ -1193,7 +1161,6 @@ HTML_TEMPLATE = """
             document.querySelector('.hero')?.classList.add('visible');
         })();
 
-        // КАЛЬКУЛЯТОР
         (function() {
             const slider = document.getElementById('budgetSlider');
             const display = document.getElementById('budgetDisplay');
@@ -1218,7 +1185,6 @@ HTML_TEMPLATE = """
             updateCalc(slider.value);
         })();
 
-        // ПРОГРЕСС-БАР МЕСТ
         (function() {
             const places = document.getElementById('places-count');
             let count = 7;
@@ -1234,5 +1200,5 @@ HTML_TEMPLATE = """
 </html>
 """
 
-# Отображаем HTML на весь экран
+# Отображаем HTML
 components.html(HTML_TEMPLATE, height=1200, scrolling=True)
