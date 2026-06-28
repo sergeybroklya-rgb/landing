@@ -7,7 +7,7 @@ st.set_page_config(
     layout="wide"
 )
 
-# АГРЕССИВНО УБИРАЕМ ОТСТУПЫ STREAMLIT
+# УБИРАЕМ ОТСТУПЫ STREAMLIT
 st.markdown("""
 <style>
     .main > div { padding: 0 !important; max-width: 100% !important; width: 100% !important; }
@@ -21,7 +21,6 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# ВАШ ПОЛНЫЙ HTML-ЛЕНДИНГ (ВСЕ СЕКЦИИ + ОРИГИНАЛЬНЫЙ ФОН)
 HTML_TEMPLATE = """
 <!DOCTYPE html>
 <html lang="ru">
@@ -31,7 +30,6 @@ HTML_TEMPLATE = """
     <title>DirectMaster — Обучение Яндекс.Директу</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        /* ===== БАЗОВЫЙ СБРОС ===== */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: "Inter", sans-serif;
@@ -44,7 +42,6 @@ HTML_TEMPLATE = """
             min-height: 100vh;
         }
 
-        /* ===== ОРИГИНАЛЬНЫЙ ГРАДИЕНТНЫЙ ФОН ===== */
         .gradient-bg {
             position: fixed;
             top: 0;
@@ -71,7 +68,6 @@ HTML_TEMPLATE = """
             100% { transform: scale(1.2) rotate(5deg); opacity: 1; }
         }
 
-        /* ===== ЧАСТИЦЫ ===== */
         #particles-canvas {
             position: fixed;
             top: 0;
@@ -82,7 +78,6 @@ HTML_TEMPLATE = """
             pointer-events: none;
         }
 
-        /* ===== СВЕЧЕНИЕ КУРСОРА ===== */
         #cursor-glow {
             position: fixed;
             width: 250px;
@@ -97,7 +92,6 @@ HTML_TEMPLATE = """
         }
         #cursor-glow.hover { width: 350px; height: 350px; background: radial-gradient(circle, rgba(167,139,250,0.18) 0%, rgba(96,165,250,0.08) 40%, transparent 70%); }
 
-        /* ===== ОСНОВНОЙ КОНТЕЙНЕР ===== */
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -105,6 +99,7 @@ HTML_TEMPLATE = """
             position: relative;
             z-index: 2;
             min-height: 100vh;
+            padding-bottom: 40px;
         }
         .reveal { opacity: 0; transform: translateY(60px) scale(0.96); transition: all 0.9s cubic-bezier(0.23, 1, 0.32, 1); }
         .reveal.visible { opacity: 1; transform: translateY(0) scale(1); }
@@ -1300,5 +1295,5 @@ HTML_TEMPLATE = """
 </html>
 """
 
-# ОТОБРАЖАЕМ ПОЛНЫЙ ЛЕНДИНГ
-components.html(HTML_TEMPLATE, height=800, scrolling=False)
+# 🔥 ВАЖНО: ВКЛЮЧАЕМ ПРОКРУТКУ!
+components.html(HTML_TEMPLATE, height=800, scrolling=True)
