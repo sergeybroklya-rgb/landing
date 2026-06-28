@@ -1,41 +1,55 @@
 import streamlit as st
 import streamlit.components.v1 as components
-from datetime import datetime, timedelta
-import time
 
-# Настройка страницы
+# НАСТРОЙКА СТРАНИЦЫ
 st.set_page_config(
     page_title="DirectMaster — Обучение Яндекс.Директу",
     page_icon="🚀",
     layout="wide"
 )
 
-# Скрываем стандартные элементы Streamlit
+# РАСШИРЯЕМ КОНТЕЙНЕР НА ВЕСЬ ЭКРАН
 st.markdown("""
-    <style>
-        #MainMenu {visibility: hidden;}
-        footer {visibility: hidden;}
-        header {visibility: hidden;}
-        .stApp {
-            background: #0b0d15;
-            color: #f0f4ff;
-        }
-        .block-container {
-            padding-top: 0;
-            padding-bottom: 0;
-            max-width: 100% !important;
-        }
-        /* Адаптация для мобильных */
-        @media (max-width: 700px) {
-            .block-container {
-                padding-left: 0;
-                padding-right: 0;
-            }
-        }
-    </style>
+<style>
+    /* Убираем все отступы */
+    .main .block-container {
+        padding-left: 0rem !important;
+        padding-right: 0rem !important;
+        padding-top: 0rem !important;
+        padding-bottom: 0rem !important;
+        max-width: 100% !important;
+    }
+    
+    /* Скрываем стандартные элементы Streamlit */
+    #MainMenu {visibility: hidden;}
+    footer {visibility: hidden;}
+    header {visibility: hidden;}
+    
+    /* Убираем фон и делаем прозрачным */
+    .stApp {
+        background: transparent !important;
+    }
+    
+    .stAppViewContainer {
+        padding: 0 !important;
+    }
+    
+    .stAppViewContainer > section {
+        padding: 0 !important;
+    }
+    
+    .st-emotion-cache-1v0mbdj {
+        padding: 0 !important;
+    }
+    
+    /* Убираем скролл у Streamlit */
+    .st-emotion-cache-16idsys {
+        padding: 0 !important;
+    }
+</style>
 """, unsafe_allow_html=True)
 
-# Ваш HTML-код (немного адаптированный для Streamlit)
+# ВАШ HTML-КОД (БЕЗ ВИДЕО)
 HTML_TEMPLATE = """
 <!DOCTYPE html>
 <html lang="ru">
@@ -239,72 +253,6 @@ HTML_TEMPLATE = """
             color: #94a3b8;
             text-align: center;
         }
-
-        .video-wrapper {
-            position: relative;
-            max-width: 700px;
-            margin: 0 auto 50px;
-            border-radius: 24px;
-            overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.06);
-            background: #0f111a;
-            aspect-ratio: 16 / 9;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        .video-wrapper:hover {
-            border-color: rgba(167,139,250,0.3);
-            transform: scale(1.01);
-        }
-        .video-wrapper .play-btn {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            background: rgba(124,58,237,0.85);
-            backdrop-filter: blur(10px);
-            border: 2px solid rgba(255,255,255,0.15);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s;
-            z-index: 2;
-        }
-        .video-wrapper .play-btn svg {
-            width: 32px;
-            height: 32px;
-            fill: white;
-            margin-left: 4px;
-        }
-        .video-wrapper:hover .play-btn {
-            transform: scale(1.1);
-            background: #7c3aed;
-        }
-        .video-wrapper .video-overlay {
-            position: absolute;
-            inset: 0;
-            background: rgba(0,0,0,0.3);
-            z-index: 1;
-        }
-        .video-wrapper .video-badge {
-            position: absolute;
-            top: 16px;
-            right: 16px;
-            background: rgba(0,0,0,0.6);
-            backdrop-filter: blur(10px);
-            padding: 6px 14px;
-            border-radius: 40px;
-            font-size: 0.75rem;
-            color: #e2e8f0;
-            border: 1px solid rgba(255,255,255,0.06);
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            z-index: 2;
-        }
-        .video-wrapper .video-badge svg { width: 14px; height: 14px; stroke: #a78bfa; }
 
         .calculator {
             max-width: 560px;
@@ -681,8 +629,6 @@ HTML_TEMPLATE = """
             .chart-bars { height: 80px; gap: 6px; }
             .roadmap { padding-left: 28px; }
             .roadmap-item .dot { width: 24px; height: 24px; font-size: 0.6rem; margin-left: -28px; }
-            .video-wrapper .play-btn { width: 56px; height: 56px; }
-            .video-wrapper .play-btn svg { width: 22px; height: 22px; }
             .rating-block .big-number { font-size: 2rem; }
         }
     </style>
@@ -881,42 +827,6 @@ HTML_TEMPLATE = """
                 <h3>Только практика</h3>
                 <p>Ты создашь и запустишь рекламную кампанию с нуля под нашим контролем.</p>
             </div>
-        </div>
-
-        <!-- ===== ВИДЕО С ТВОЕЙ ССЫЛКОЙ ===== -->
-        <div class="section-header reveal">
-            <h2 class="section-title">Смотри, что внутри</h2>
-            <p class="section-sub">Тизер курса — 2 минуты о главном</p>
-        </div>
-
-        <div class="video-wrapper reveal" id="videoContainer">
-            <div class="video-overlay"></div>
-            
-            <!-- ОБЛОЖКА (ПРЕВЬЮ) -->
-            <img 
-                src="https://img.youtube.com/vi/aArcut8WpZk/maxresdefault.jpg" 
-                alt="Превью видео"
-                style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; transition: opacity 0.5s;"
-                id="videoPreview"
-            >
-            
-            <!-- КНОПКА PLAY -->
-            <div class="play-btn" id="playBtn" style="z-index: 2; transition: all 0.3s;">
-                <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-            </div>
-            
-            <!-- YOUTUBE IFRAME -->
-            <iframe 
-                id="videoIframe"
-                width="100%" 
-                height="100%" 
-                src="https://www.youtube.com/embed/aArcut8WpZk?autoplay=0&rel=0&controls=1&modestbranding=1&enablejsapi=1"
-                title="YouTube video player"
-                frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen
-                style="position: absolute; inset: 0; width: 100%; height: 100%; z-index: 3; opacity: 0; pointer-events: none; transition: opacity 0.5s;"
-            ></iframe>
         </div>
 
         <!-- ROADMAP -->
@@ -1186,7 +1096,7 @@ HTML_TEMPLATE = """
                 requestAnimationFrame(animate);
             }
             animate();
-            document.querySelectorAll('.btn-primary, .btn-secondary, .nav-cta, .feature-card, .pricing-card, .bonus-item, .program-item, .review-card, .video-wrapper').forEach(el => {
+            document.querySelectorAll('.btn-primary, .btn-secondary, .nav-cta, .feature-card, .pricing-card, .bonus-item, .program-item, .review-card').forEach(el => {
                 el.addEventListener('mouseenter', () => glow.classList.add('hover'));
                 el.addEventListener('mouseleave', () => glow.classList.remove('hover'));
             });
@@ -1281,31 +1191,10 @@ HTML_TEMPLATE = """
                 }
             }, 30000);
         })();
-
-        // ===== ВИДЕО (КЛИК → ПЛЕЙ) =====
-        (function() {
-            const container = document.getElementById('videoContainer');
-            const iframe = document.getElementById('videoIframe');
-            const preview = document.getElementById('videoPreview');
-            const playBtn = document.getElementById('playBtn');
-            let played = false;
-
-            container.addEventListener('click', function() {
-                if (!played) {
-                    played = true;
-                    iframe.style.opacity = '1';
-                    iframe.style.pointerEvents = 'auto';
-                    preview.style.opacity = '0';
-                    playBtn.style.opacity = '0';
-                    // Запускаем видео с автоплеем
-                    iframe.src = iframe.src.replace('autoplay=0', 'autoplay=1');
-                }
-            });
-        })();
     </script>
 </body>
 </html>
 """
 
-# Отображаем HTML внутри Streamlit
-st.components.v1.html(HTML_TEMPLATE, height=800, scrolling=True)
+# Отображаем HTML на весь экран
+components.html(HTML_TEMPLATE, height=1200, scrolling=True)
